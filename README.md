@@ -16,6 +16,8 @@ The NVIDIA GPU REST Engine (GRE) is a critical component for developers building
 
 ## Example Curl Call
 
+Currently the inference api only supports JPG images
+
 ```
 host="EC2 instance IP"
 curl \
@@ -23,12 +25,6 @@ curl \
   -X POST \
    --data-binary @images/1.jpg \
    http://${host}:8000/api/classify
-```
-
-## Starting the GPU Rest Engine via init script:
-
-```
-sudo service gpurestengine start
 ```
 
 Several trained example model are provided on the system amongst which you can select:
@@ -67,9 +63,16 @@ SYNSET_WORDS="caffe/data/ilsvrc12/synset_words.txt"
 sudo service gpurestengine start
 ```
 
-## Starting the GPU Rest Engine Manually 
+## Starting the GPU Rest Engine manually via init script:
 
-This would start server with bvlc reference caffe model trained with ilsvrc12 dataset. Server listens on port 8000
+```
+sudo service gpurestengine start
+```
+
+
+## Starting the GPU Rest Engine manually 
+
+This would start the server with the bvlc reference caffe model trained with ilsvrc12 dataset. Server listens on port 8000
 
 ```
 nvidia-docker run --name=gpurestengine --net=host --rm \
@@ -81,7 +84,7 @@ nvidia-docker run --name=gpurestengine --net=host --rm \
       "caffe/data/ilsvrc12/synset_words.txt"
 ```
 
-This would start server with bvlc alexnet model trained with ilsvrc12 dataset. Server listens on port 8000
+This would start the server with the bvlc alexnet model trained with ilsvrc12 dataset. Server listens on port 8000
 
 ```
 nvidia-docker run --name=gpurestengine --net=host --rm \
@@ -93,7 +96,7 @@ nvidia-docker run --name=gpurestengine --net=host --rm \
       "caffe/data/ilsvrc12/synset_words.txt"
 ```
 
-This would start server with googlenet alexnet model trained with ilsvrc12 dataset. Server listens on port 8000
+This would start the server with the googlenet alexnet model trained with ilsvrc12 dataset. Server listens on port 8000
 ```
 nvidia-docker run --name=gpurestengine --net=host --rm \
   863665633681.dkr.ecr.us-east-1.amazonaws.com/bitfusion/infratech:gpurestengine \
@@ -105,7 +108,7 @@ nvidia-docker run --name=gpurestengine --net=host --rm \
 
 ```
 
-## Accessing the Container & Creating A Model
+## Accessing the container & creating a model
 
 To build your own model you need to access the container after you SSH into the EC2 instance. You can do this by running:
 
